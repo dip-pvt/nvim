@@ -17,26 +17,26 @@ return {
           desc="Find by grepping in project directory"
         },
         {
-          "<leader>fk",
-          function()
-            require("fzf-lua").keymaps()
-          end,
-          desc = "[F]ind [K]eymaps",
-        },
-        {
-          "<leader>fo",
-          function()
-              require("fzf-lua").oldfiles()
-          end,
-          desc = "[F]ind [O]ld Files",
-        },
-        {
           "<leader>/",
           function()
               require("fzf-lua").lgrep_curbuf()
           end,
           desc = "[/] Live grep the current buffer",
         },
+        {
+          "<leader>fk",
+          function()
+            require("fzf-lua").keymaps()
+          end,
+          desc = "[F]ind [K]eymaps",
+        },
+        -- {
+        --   "<leader>fo",
+        --   function()
+        --       require("fzf-lua").oldfiles()
+        --   end,
+        --   desc = "[F]ind [O]ld Files",
+        -- },
         -- {
           --     "<leader>fb", -- other fzf cmd list
           --     function()

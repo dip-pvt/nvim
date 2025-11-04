@@ -106,6 +106,17 @@ vim.keymap.set("n", "<C-X>", "<cmd>q!<CR>") -- force quit the current buffer (ca
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>") -- save the current buffer
 vim.keymap.set("n", "<C-x>", "<cmd>wq<CR>") -- save the current buffer
 
+
+-- autosave after leave insert mode
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+	pattern = "*",
+	callback = function()
+		if vim.bo.modified then
+			vim.cmd("silent! write")
+		end
+	end,
+})
+
 -- File manager
 -- Autocommand to set absolute line numbers when entering a netrw(nvim file manager) buffer
 vim.api.nvim_create_autocmd("FileType", {

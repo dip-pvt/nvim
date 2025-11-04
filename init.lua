@@ -107,15 +107,22 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<CR>") -- save the current buffer
 vim.keymap.set("n", "<C-x>", "<cmd>wq<CR>") -- save the current buffer
 
 
--- autosave after leave insert mode
+-- Autocommand to save when leaving Insert mode OR after a Normal/Visual mode change
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-	pattern = "*",
-	callback = function()
-		if vim.bo.modified then
-			vim.cmd("silent! write")
-		end
-	end,
+  pattern = "*",
+  callback = function()
+    if
+      vim.bo.buftype == ""
+      and vim.bo.modifiable
+      and vim.bo.modified
+      and vim.fn.expand("%") ~= ""
+    then
+      vim.cmd("silent! write")
+    end
+  end,
+  desc = "Autosave on insert leave or text change",
 })
+
 
 -- File manager
 -- Autocommand to set absolute line numbers when entering a netrw(nvim file manager) buffer

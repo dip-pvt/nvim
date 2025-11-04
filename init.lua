@@ -94,6 +94,18 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
+
+-- Better window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- better save and quite
+vim.keymap.set("n", "<C-X>", "<cmd>q!<CR>") -- force quit the current buffer (capital for "Shift")
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>") -- save the current buffer
+vim.keymap.set("n", "<C-x>", "<cmd>wq<CR>") -- save the current buffer
+
 -- File manager
 -- Autocommand to set absolute line numbers when entering a netrw(nvim file manager) buffer
 vim.api.nvim_create_autocmd("FileType", {

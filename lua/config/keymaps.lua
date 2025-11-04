@@ -1,4 +1,4 @@
-vim.keymap.set("n", "-", "<cmd>Ex<CR>") -- Open nvim files
+
 
 
 vim.keymap.set("n", "gl", function() vim.diagnostic.open_float() end,

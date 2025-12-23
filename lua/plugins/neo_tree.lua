@@ -1,21 +1,3 @@
--- return {
---   {
---     "nvim-neo-tree/neo-tree.nvim",
---     branch = "v3.x",
---     dependencies = {
---       "nvim-lua/plenary.nvim",
---       "MunifTanjim/nui.nvim",
---       "nvim-tree/nvim-web-devicons", -- optional, but recommended
---     },
---     lazy = false, -- neo-tree will lazily load itself
---   }
--- }
-
-
--- -- :Neotree source=filesystem reveal=true position=righ
--- -- :Neotree source=git_status reveal=true position=righ
-
-
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -54,9 +36,10 @@ return {
       -- KEYMAPS to open neo-tree
 
       -- This is the specific command you were using
-      vim.keymap.set("n", "-", ":Neotree source=filesystem reveal=true position=right<CR>", { 
-        desc = "Neo-Tree reveal file in right position" 
-      })
+
+ 
+      vim.keymap.set("n", "-", ":Neotree toggle source=filesystem reveal=true position=right<CR>", { 
+        desc = "Neo-Tree toggle reveal file" })
 
     end
   }

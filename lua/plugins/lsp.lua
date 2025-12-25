@@ -253,7 +253,7 @@ return {
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua",
-			"black", -- Used to format Lua code !!! we can add more formatters here by 'mason'
+			-- "black", -- Used to format Lua code !!! we can add more formatters here by 'mason'
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -273,4 +273,3 @@ return {
 		})
 	end,
 }
-

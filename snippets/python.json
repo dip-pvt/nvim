@@ -1,0 +1,23 @@
+{
+  "Main Boilerplate": {
+    "prefix": "main",
+    "body": [
+      "def main():",
+      "    ${1:pass}",
+      "",
+      "if __name__ == \"__main__\":",
+      "    main()"
+    ],
+    "description": "Standard Python main block"
+  },
+  "Class with Init": {
+    "prefix": "klass",
+    "body": [
+      "class ${1:ClassName}:",
+      "    def __init__(self, ${2:args}):",
+      "        ${3:self.args = args}",
+      "        ${0}"
+    ],
+    "description": "Create a class with a constructor"
+  }
+}

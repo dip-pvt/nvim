@@ -15,7 +15,7 @@ return {
 
 				window = {
 					-- Sets the width to 30% of the screen
-					width = 30,
+					width = "20%",
 
 					-- Or, use an absolute value (uncomment the line below)
 					-- width = 45, -- Sets the width to 45 columns

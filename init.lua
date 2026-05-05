@@ -24,11 +24,11 @@ vim.opt.splitbelow = true -- New horizontal splits open at the bottom
 vim.cmd.colorscheme("onedark") -- Set the colorscheme
 
 -- Line Numbering
-vim.opt.number = true -- Show absolute line number for the current line
-vim.opt.relativenumber = true -- Show relative line numbers for navigation
+vim.opt.number = true -- Always show the absolute number of the current line
+vim.opt.relativenumber = true -- Start with relative numbers (Normal mode)
 
 -- Cursor & Viewing
-vim.opt.cursorline = true -- Highlight the current line
+vim.opt.cursorline = true -- Highlight current line
 vim.opt.wrap = false -- Disable line wrapping
 vim.opt.scrolloff = 10 -- Keep 10 lines of context above/below cursor
 vim.opt.sidescrolloff = 8 -- Keep 8 columns of context left/right
@@ -36,7 +36,7 @@ vim.opt.sidescrolloff = 8 -- Keep 8 columns of context left/right
 -- Indentation
 vim.opt.tabstop = 4 -- Number of spaces for a tab
 vim.opt.shiftwidth = 4 -- Number of spaces for auto-indent
-vim.opt.softtabstop = 4 -- Number of spaces a tab counts for during editing
+vim.opt.softtabstop = 4 -- Number of spaces a tab counts for
 vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.smartindent = true -- Enable smart auto-indenting
 vim.opt.autoindent = true -- Copy indent from current line
@@ -53,7 +53,7 @@ vim.opt.showmatch = true -- Highlight matching brackets
 vim.opt.matchtime = 2 -- Time to show matching bracket
 vim.opt.cmdheight = 1 -- Command line height
 vim.opt.completeopt = "menuone,noinsert,noselect" -- Completion options
-vim.opt.showmode = false -- Hide the mode (e.g., -- INSERT --)
+vim.opt.showmode = false -- Hide the mode
 vim.opt.pumheight = 10 -- Popup menu height
 vim.opt.pumblend = 10 -- Popup menu transparency
 vim.opt.winblend = 0 -- Floating window transparency
@@ -99,61 +99,60 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Save & Quit
--- vim.keymap.set("n", "<c-x>", "<cmd>q!<cr>", { desc = "force quit" })
--- vim.keymap.set("n", "<c-s>", "<cmd>w<cr>", { desc = "save file" })
--- vim.keymap.set("n", "<c-x>", "<cmd>wq<cr>", { desc = "save and quit" })
+-- ============================================================================
+-- AUTOCOMMANDS
+-- ============================================================================
 
--- ============================================================================
--- autocommands
--- ============================================================================
+-- Group to prevent duplicate autocommands
+-- FIXED: Moved this to the top of the autocommand block
+local user_cmds = vim.api.nvim_create_augroup("UserCmds", { clear = true })
 
 -- Toggle relative line numbers based on mode
+-- Switch to absolute numbers when typing (InsertEnter)
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 	group = user_cmds,
 	callback = function()
-		vim.opt.relativenumber = false -- Use absolute numbers in Insert mode
+		vim.opt.relativenumber = false
 	end,
 	desc = "Show absolute line numbers in Insert mode",
 })
 
+-- Switch back to relative numbers for navigation (InsertLeave)
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	group = user_cmds,
 	callback = function()
-		vim.opt.relativenumber = true -- Use relative numbers in Normal mode
+		vim.opt.relativenumber = true
 	end,
 	desc = "Show relative line numbers in Normal mode",
 })
 
--- group to prevent duplicate autocommands
-local user_cmds = vim.api.nvim_create_augroup("usercmds", { clear = true })
-
--- improved auto-save
--- triggers on leaving insert mode, text changes, or losing window focus.
-vim.api.nvim_create_autocmd({ "insertleave", "focuslost" }, {
+-- Improved Auto-save
+-- Automatically saves when leaving insert mode or when Neovim loses focus
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
 	group = user_cmds,
 	pattern = "*",
 	callback = function()
+		-- Only save if the buffer is a normal file and has been modified
 		if vim.bo.buftype == "" and vim.bo.modifiable and vim.bo.modified and vim.fn.expand("%") ~= "" then
 			vim.cmd("silent! write")
 		end
 	end,
-	desc = "auto-save on insert leave, text change, or focus loss",
+	desc = "Auto-save on insert leave or focus loss",
 })
 
--- netrw settings
-vim.api.nvim_create_autocmd("filetype", {
+-- Netrw settings
+vim.api.nvim_create_autocmd("FileType", {
 	group = user_cmds,
 	pattern = "netrw",
 	callback = function()
 		vim.opt_local.number = true
 		vim.opt_local.relativenumber = true
 	end,
-	desc = "enable line numbers in file explorer",
+	desc = "Enable line numbers in file explorer",
 })
 
--- return to last edit position
-vim.api.nvim_create_autocmd("bufreadpost", {
+-- Return to last edit position
+vim.api.nvim_create_autocmd("BufReadPost", {
 	group = user_cmds,
 	callback = function()
 		local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -162,19 +161,19 @@ vim.api.nvim_create_autocmd("bufreadpost", {
 			pcall(vim.api.nvim_win_set_cursor, 0, mark)
 		end
 	end,
-	desc = "restore cursor position",
+	desc = "Restore cursor position",
 })
 
--- highlight yanked text
-vim.api.nvim_create_autocmd("textyankpost", {
+-- Highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
 	group = user_cmds,
 	callback = function()
 		vim.highlight.on_yank({ timeout = 200 })
 	end,
-	desc = "highlight copied text",
+	desc = "Highlight copied text",
 })
 
 -- ============================================================================
--- plugin loading
+-- PLUGIN LOADING
 -- ============================================================================
 require("config.lazy")

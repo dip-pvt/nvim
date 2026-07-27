@@ -24,10 +24,10 @@ return {
       completion = { documentation = { auto_show = true } },
       signature = { enabled = true },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets" },
       },
-      fuzzy = { implementation = "lua" },
-      -- fuzzy = { implementation = "prefer_rust_with_warning" },
+      -- fuzzy = { implementation = "lua" },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
     },
   },
 }

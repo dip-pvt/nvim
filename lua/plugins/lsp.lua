@@ -10,7 +10,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-		-- Useful status updates for LSP.
+		-- Useful status updates for LSPvim.lsp.buf.document_highlight().
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()

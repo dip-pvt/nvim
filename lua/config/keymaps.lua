@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>e", function()
 end, { desc = "Open Workspace Diagnostics List" })
 
 -- Close the Quickfix list window
-vim.keymap.set("n", "<leader>E", "<cmd>cclose<CR>", { desc = "Close Diagnostics List" })
+vim.keymap.set("n", "<le⧮ader>E", "<cmd>cclose<CR>", { desc = "Close Diagnostics List" })
 
 -- Clear search highlights by pressing Esc in Normal Mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear Search Highlights" })

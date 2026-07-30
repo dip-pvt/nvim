@@ -25,7 +25,6 @@ vim.cmd.colorscheme("onedark") -- Set the colorscheme
 
 -- Line Numbering
 vim.opt.number = true -- Always show the absolute number of the current line
-vim.opt.relativenumber = true -- Start with relative numbers (Normal mode)
 
 -- Cursor & Viewing
 vim.opt.cursorline = true -- Highlight current line
@@ -49,8 +48,8 @@ vim.opt.incsearch = true -- Show matches as you type
 -- Visual & Performance
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
 vim.opt.signcolumn = "yes" -- Always show the sign column
-vim.opt.showmatch = true -- Highlight matching brackets
-vim.opt.matchtime = 2 -- Time to show matching bracket
+-- vim.opt.showmatch = true -- Highlight matching brackets
+-- vim.opt.matchtime = 2 -- Time to show matching bracket
 vim.opt.cmdheight = 1 -- Command line height
 vim.opt.completeopt = "menuone,noinsert,noselect" -- Completion options
 vim.opt.showmode = false -- Hide the mode
@@ -107,49 +106,37 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 -- FIXED: Moved this to the top of the autocommand block
 local user_cmds = vim.api.nvim_create_augroup("UserCmds", { clear = true })
 
--- Toggle relative line numbers based on mode
--- Switch to absolute numbers when typing (InsertEnter)
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-	group = user_cmds,
-	callback = function()
-		vim.opt.relativenumber = false
-	end,
-	desc = "Show absolute line numbers in Insert mode",
-})
-
--- Switch back to relative numbers for navigation (InsertLeave)
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-	group = user_cmds,
-	callback = function()
-		vim.opt.relativenumber = true
-	end,
-	desc = "Show relative line numbers in Normal mode",
-})
-
 -- Improved Auto-save
--- Automatically saves when leaving insert mode or when Neovim loses focus
-vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
+-- Automatically saves when leaving insert mode or when Neovim loses focus or change in normal mode
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost", "BufLeave", "TextChanged" }, {
 	group = user_cmds,
 	pattern = "*",
-	callback = function()
-		-- Only save if the buffer is a normal file and has been modified
+	callback = function(ev)
+		-- Skip TextChanged if currently in insert mode
+		if ev.event == "TextChanged" and vim.api.nvim_get_mode().mode:sub(1, 1) == "i" then
+			return
+		end
+
 		if vim.bo.buftype == "" and vim.bo.modifiable and vim.bo.modified and vim.fn.expand("%") ~= "" then
-			vim.cmd("silent! write")
+			vim.cmd("silent! noautocmd write")
 		end
 	end,
-	desc = "Auto-save on insert leave or focus loss",
+	desc = "Auto-save on normal mode changes, focus loss, and exiting insert mode",
 })
 
+
 -- Netrw settings
+vim.g.netrw_keepdir = 0
+vim.g.netrw_liststyle = 3
 vim.api.nvim_create_autocmd("FileType", {
 	group = user_cmds,
 	pattern = "netrw",
 	callback = function()
-		vim.opt_local.number = true
-		vim.opt_local.relativenumber = true
+		vim.wo.number = true
 	end,
 	desc = "Enable line numbers in file explorer",
 })
+
 
 -- Return to last edit position
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -176,4 +163,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- ============================================================================
 -- PLUGIN LOADING
 -- ============================================================================
+require("config.keymaps")
 require("config.lazy")

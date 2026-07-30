@@ -30,21 +30,28 @@ return {
           end,
           desc = "[F]ind [K]eymaps",
         },
+        {
+          "<leader>fo",
+          function()
+              require("fzf-lua").oldfiles()
+          end,
+          desc = "[F]ind [O]ld Files",
+        },
+        {
+          "<leader>fb", -- other fzf cmd list
+          function()
+              require("fzf-lua").builtin()
+          end,
+          desc = "[F]ind [B]uiltin FZF",
+        },
+        {
+            "<leader>b",
+            function()
+                require("fzf-lua").buffers()
+            end,
+            desc = "[F]ind [D]iagnostics",
+        },
         -- {
-        --   "<leader>fo",
-        --   function()
-        --       require("fzf-lua").oldfiles()
-        --   end,
-        --   desc = "[F]ind [O]ld Files",
-        -- },
-        -- {
-          --     "<leader>fb", -- other fzf cmd list
-          --     function()
-          --         require("fzf-lua").builtin()
-          --     end,
-          --     desc = "[F]ind [B]uiltin FZF",
-          -- },
-          -- {
         --     "<leader>fw",
         --     function()
         --         require("fzf-lua").grep_cword()
@@ -57,13 +64,6 @@ return {
         --         require("fzf-lua").grep_cWORD()
         --     end,
         --     desc = "[F]ind current [W]ORD",
-        -- },
-        -- {
-        --     "<leader>fd",
-        --     function()
-        --         require("fzf-lua").diagnostics_document()
-        --     end,
-        --     desc = "[F]ind [D]iagnostics",
         -- },
         -- {
         --     "<leader>fr",

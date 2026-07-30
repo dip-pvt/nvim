@@ -31,7 +31,7 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- automatically check for plugin updates
-  checker = { enabled = false }, -- auto update
+  checker = { enabled = false }, -- no auto update
   change_detection = {
     enabled = false, -- This is the "sync=false" you wanted
   },

@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>e", function()
 end, { desc = "Open Workspace Diagnostics List" })
 
 -- Close the Quickfix list window
-vim.keymap.set("n", "<le⧮ader>E", "<cmd>cclose<CR>", { desc = "Close Diagnostics List" })
+vim.keymap.set("n", "<leader>E", "<cmd>cclose<CR>", { desc = "Close Diagnostics List" })
 
 -- Clear search highlights by pressing Esc in Normal Mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear Search Highlights" })
@@ -34,10 +34,7 @@ vim.keymap.set("n", "<leader>cc", '"_cc', { desc = "Change Line (No Yank)" })
 vim.keymap.set("n", "<leader>c", '"_c', { desc = "Change Operator (No Yank)" })
 vim.keymap.set("n", "<leader>C", '"_C', { desc = "Change to EOL (No Yank)" })
 
--- Substitute operations
--- Note: 's' and 'S' are useful, but keep an eye on plugin conflicts
-vim.keymap.set("n", "<leader>s", '"_s', { desc = "Substitute Character (No Yank)" })
-vim.keymap.set("n", "<leader>S", '"_S', { desc = "Substitute Line (No Yank)" })
+
 
 -- ============================================================================
 -- VISUAL MODE: DELETE/CHANGE WITHOUT YANKING
@@ -49,4 +46,3 @@ vim.keymap.set("v", "<leader>c", '"_c', { desc = "Change Selection (No Yank)" })
 
 -- The "Magic Paste": Paste over selection without losing your current clipboard
 -- It deletes the selection to the black hole register, then pastes.
-vim.keymap.set("v", "<leader>p", '"_dP', { desc = "Paste Over Selection (No Yank)" })

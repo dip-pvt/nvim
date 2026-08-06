@@ -12,7 +12,7 @@ return {
         ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
         ["<C-Z>"] = { "accept", "fallback" },
-        ["<Enter>"] = { "select_and_accept", "fallback" },
+        ["<Enter>"] = { "accept", "fallback" },
         -- ["<C-Z>"] = { "accept", "fallback" },
         -- ["<Tab>"] = { "select_next", "fallback" },
         -- ["<S-Tab>"] = { "select_prev", "fallback" },
@@ -21,7 +21,17 @@ return {
       appearance = {
         nerd_font_variant = "mono",
       },
-      completion = { documentation = { auto_show = true } },
+      completion = { 
+        documentation = { 
+          auto_show = true,
+        },
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
+        },
+      },
       signature = { enabled = true },
       sources = {
         default = { "lsp", "path", "snippets" },

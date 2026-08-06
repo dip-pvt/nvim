@@ -117,7 +117,7 @@ return {
         },
         python = {
           analysis = {
-            ignore = { "*" }, -- disable diagnostics
+            typeCheckingMode = "off",
           },
         },
       },
@@ -137,16 +137,15 @@ return {
       end,
     })
 
-    -- Enable when you install gopls
-    -- vim.lsp.config("gopls", {
-      --   capabilities = capabilities,
-      -- })
+    vim.lsp.config("gopls", {
+        capabilities = capabilities,
+      })
 
       vim.lsp.enable({
         "bashls",
         "pyright",
         "ruff",
-        -- "gopls",
+        "gopls",
       })
     end,
   }

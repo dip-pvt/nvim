@@ -9,7 +9,7 @@ return {
       snippets = { preset = "default" },
       keymap = {
         preset = "default",
-        ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+        ["<Tab>"] = {  "select_next", "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
         ["<C-Z>"] = { "accept", "fallback" },
         ["<Enter>"] = { "accept", "fallback" },

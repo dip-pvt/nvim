@@ -49,7 +49,7 @@ return {
             function()
                 require("fzf-lua").buffers()
             end,
-            desc = "[F]ind [D]iagnostics",
+            desc = "[F]ind [b]uffer",
         },
         -- {
         --     "<leader>fw",

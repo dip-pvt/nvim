@@ -22,7 +22,7 @@ return {
         map("gd", require("fzf-lua").lsp_definitions, "Goto Definition")
         map("gr", require("fzf-lua").lsp_references, "References")
         map("gI", require("fzf-lua").lsp_implementations, "Implementation")
-        map("<leader>D", require("fzf-lua").lsp_typedefs, "Type Definition")
+        map("<leader>dt", require("fzf-lua").lsp_typedefs, "Type Definition")
         map("<leader>ds", require("fzf-lua").lsp_document_symbols, "Document Symbols")
         map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "Workspace Symbols")
 

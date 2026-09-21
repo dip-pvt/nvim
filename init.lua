@@ -21,7 +21,8 @@ vim.g.clipboard = {
 -- UI & Layout
 vim.opt.splitright = true -- New vertical splits open on the right
 vim.opt.splitbelow = true -- New horizontal splits open at the bottom
-vim.cmd.colorscheme("onedark") -- Set the colorscheme
+-- vim.cmd.colorscheme("onedark") -- Set the colorscheme
+vim.cmd.colorscheme("catppuccin") -- Set the colorscheme
 
 -- Line Numbering
 vim.opt.number = true -- Always show the absolute number of the current line
@@ -98,6 +99,17 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
+-- Code Folding
+-- Tell Neovim to use Treesitter code-parsing for folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- Prevent Neovim from folding everything automatically when opening a file
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
+
 -- ============================================================================
 -- AUTOCOMMANDS
 -- ============================================================================
@@ -124,7 +136,6 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "FocusLost", "BufLeave", "TextChang
 	desc = "Auto-save on normal mode changes, focus loss, and exiting insert mode",
 })
 
-
 -- Netrw settings
 vim.g.netrw_keepdir = 0
 vim.g.netrw_liststyle = 3
@@ -136,7 +147,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 	desc = "Enable line numbers in file explorer",
 })
-
 
 -- Return to last edit position
 vim.api.nvim_create_autocmd("BufReadPost", {

@@ -5,5 +5,16 @@
       "// $1 ----------------------------------------------------------------------------------------------------"
     ],
     "description": "Insert a 100-character line divider for Go"
-  }
+  },
+
+  "if err != nil": {
+  "prefix": "iferr",
+  "body": [
+    "if err != nil {",
+    "\t$1",
+    "}"
+  ],
+  "description": "Insert a standard Go error check"
+}
+
 }

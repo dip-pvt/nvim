@@ -46,3 +46,6 @@ vim.keymap.set("v", "<leader>c", '"_c', { desc = "Change Selection (No Yank)" })
 
 -- The "Magic Paste": Paste over selection without losing your current clipboard
 -- It deletes the selection to the black hole register, then pastes.
+--
+-- quite 
+vim.keymap.set("n", "<leader>q", ":q<cr>", { silent = true })
